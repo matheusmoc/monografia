@@ -19,9 +19,9 @@ export default function PatientList() {
       <FlatList
         data={nurses}
         keyExtractor={(item ) => item.uuid}
-        renderItem={({ item }) => (
+        renderItem={({ item, index  }) => (
           <View style={styles.itemContainer}>
-            <Text>{item.uuid}</Text>
+            <Text>{index + 1}</Text>
             <Text style={styles.name}>{`${item.Name} ${item.LastName}`}</Text>
             <Text style={styles.phone}>Telefone: {item.Phone}</Text>
             <Text style={styles.vaccine}>Vacina: {item.Vaccine}</Text>
