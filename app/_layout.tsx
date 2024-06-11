@@ -1,37 +1,72 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import React from 'react';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { SafeAreaView, ActivityIndicator, View, StyleSheet } from 'react-native';
+import SignOutButton from './../components/SignOutButton';
+import Header from './../components/Home/Header';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Authenticator, withAuthenticator } from '@aws-amplify/ui-react-native';
+import { Amplify, I18n } from 'aws-amplify';
+import awsExports from './../src/aws-exports';
+import ptBR from './../src/translations/pt-BR';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+Amplify.configure(awsExports);
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+I18n.putVocabularies({
+  'pt-BR': ptBR,
+});
+
+I18n.setLanguage('pt-BR');
+
+function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    'outfit': require('./../assets/fonts/Outfit-Regular.ttf'),
+    'outfit-medium': require('./../assets/fonts/Outfit-Medium.ttf'),
+    'outfit-bold': require('./../assets/fonts/Outfit-Bold.ttf'),
   });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Header />
+      </View>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
       </Stack>
-    </ThemeProvider>
+      <View style={styles.signOutContainer}>
+        <Authenticator.Provider>
+          <Authenticator>
+            <SignOutButton />
+          </Authenticator>
+        </Authenticator.Provider>
+      </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signOutContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
+  },
+});
+
+export default withAuthenticator(RootLayout);

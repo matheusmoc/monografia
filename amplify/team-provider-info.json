@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hospitalapp-dev-3d24d-authRole",
+      "UnauthRoleArn": "arn:aws:iam::257288368993:role/amplify-hospitalapp-dev-3d24d-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::257288368993:role/amplify-hospitalapp-dev-3d24d-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-hospitalapp-dev-3d24d-deployment",
+      "UnauthRoleName": "amplify-hospitalapp-dev-3d24d-unauthRole",
+      "StackName": "amplify-hospitalapp-dev-3d24d",
+      "StackId": "arn:aws:cloudformation:us-east-1:257288368993:stack/amplify-hospitalapp-dev-3d24d/6fcccd20-2222-11ef-ba47-0affea301fff",
+      "AmplifyAppId": "d2rfxfm45hrqhr"
+    },
+    "categories": {
+      "auth": {
+        "hospitalapp22c72fea": {}
+      }
+    }
+  }
+}
