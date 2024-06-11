@@ -44,9 +44,8 @@ export default function Header() {
       backgroundColor: Colors.primary,
       borderBottomLeftRadius:20,
       borderBottomRightRadius:20,
-
     }}>
-      <View style={{
+        <View style={{
           width: 50,
           height: 50,
           borderRadius: 50,
@@ -55,15 +54,15 @@ export default function Header() {
           alignItems: 'center',
           display: 'flex',
           flexDirection: 'row',
-      }}>
+          }}>
           <Text style={{ 
             fontSize: 20,
             fontFamily: 'outfit-medium',
             color: 'white'
-           }}>
-            {user.attributes.email.toUpperCase().charAt(0)}
+          }}>
+            {user && user.attributes.email.toUpperCase().charAt(0)}
           </Text>
-      </View>
+        </View>
       <View style={{
         display: 'flex',
         flexDirection: 'row',
