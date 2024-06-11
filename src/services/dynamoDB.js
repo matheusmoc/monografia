@@ -16,6 +16,7 @@ export const listHospitalNurses = async () => {
 
   try {
     const data = await dynamoDB.scan(params).promise();
+    //console.log(data)
     return data.Items;
   } catch (error) {
     console.error("Error fetching data from DynamoDB", error);
